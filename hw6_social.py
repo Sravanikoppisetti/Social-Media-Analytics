@@ -17,6 +17,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import matplotlib.pyplot as plt; plt.rcdefaults()
 import numpy as np
 endChars = [ " ", "\n", "#", ".", ",", "?", "!", ":", ";", ")" ]
+import re
 
 '''
 makeDataFrame(filename)
@@ -36,7 +37,6 @@ Parameters: str
 Returns: str
 '''
 def parseName(fromString):
-    import re
     newstring=re.split(':',fromString)[1]
     newstring1=re.split('\(',newstring)[0]
     name=newstring1.strip(" ")
@@ -50,7 +50,6 @@ Parameters: str
 Returns: str
 '''
 def parsePosition(fromString):
-    import re
     newstring2=re.split('\(',fromString)[1]
     newstring3=re.split('from',newstring2)[0]
     position=newstring3.strip(" ")
@@ -64,7 +63,6 @@ Parameters: str
 Returns: str
 '''
 def parseState(fromString):
-    import re
     newstring4=re.split('from',fromString)[1]
     newstring5=re.split('\)',newstring4)[0]
     state=newstring5.strip(" ")
@@ -78,7 +76,9 @@ Parameters: str
 Returns: list of strs
 '''
 def findHashtags(message):
-    return
+
+   
+    return 
 
 
 '''
