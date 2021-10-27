@@ -91,7 +91,7 @@ def getRegionFromState(stateDf, state):
     
 
 
-'''s
+'''
 addColumns(data, stateDf)
 #7 [Check6-1]
 Parameters: dataframe ; dataframe
@@ -192,7 +192,20 @@ Parameters: dataframe ; str
 Returns: dict mapping strs to (dicts mapping strs to ints)
 '''
 def getDataForRegion(data, colName):
-    return
+    region={}
+    for i,row in data.iterrows():
+        sub_region=row["region"]
+        if sub_region not in region:
+            region[sub_region] = {}
+        if  sub_region  in region:
+            att=row[colName]
+            if att not in region[sub_region]:
+                region[sub_region][att] = 0
+            region[sub_region][att] += 1
+    #print("rr",region)
+    return region
+
+    
 
 
 '''
@@ -339,7 +352,7 @@ if __name__ == "__main__":
     # stateDf = makeDataFrame("data/statemappings.csv")
     # addColumns(df, stateDf)
     # addSentimentColumn(df)
-    test.testGetDataCountByState(df)
+    test.testGetDataForRegion(df)
 
     ## Uncomment these for Week 3 ##
     """print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
