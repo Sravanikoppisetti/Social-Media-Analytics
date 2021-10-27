@@ -26,6 +26,7 @@ Returns: dataframe
 '''
 def makeDataFrame(filename):
     df=pd.read_csv(filename)
+    #print(df['text'],df['message'])
     return df
 
 
@@ -75,7 +76,7 @@ Parameters: str
 Returns: list of strs
 '''
 def findHashtags(message):
-    return re.findall(r"#\w+", message)
+   return re.findall(r"#\w+", message)
 
 
 '''
@@ -90,7 +91,7 @@ def getRegionFromState(stateDf, state):
     
 
 
-'''
+'''s
 addColumns(data, stateDf)
 #7 [Check6-1]
 Parameters: dataframe ; dataframe
@@ -153,10 +154,10 @@ def addSentimentColumn(data):
     sentiments=[]
     for index,row in data.iterrows():
         message=data['text'].iloc[index]
-        txt=findSentiment(classifier,message)
-        sentiments.append(txt)
+        text=findSentiment(classifier,message)
+        sentiments.append(text)
     data["sentiment"]=sentiments
-    #print(data)
+    #print(data.head(3))
     return
 
 
@@ -168,8 +169,21 @@ Parameters: dataframe ; str ; str
 Returns: dict mapping strs to ints
 '''
 def getDataCountByState(data, colName, dataToCount):
-    return
+    state_count={}
+    for i,row in data.iterrows():
+        if ((len(colName)==0) and (len(dataToCount)==0) or (row[colName]==dataToCount)):
+                state=row["state"]
+                if state not in state_count:
+                    state_count[state] = 0
+                state_count[state] += 1
+    return state_count
+df = makeDataFrame("data/politicaldata.csv")
+stateDf = makeDataFrame("data/statemappings.csv")
+addColumns(df, stateDf)
+addSentimentColumn(df)
+#print(getDataCountByState(df, "message", "policy"))
 
+#df = makeDataFrame("data/politicaldata.csv")
 
 '''
 getDataForRegion(data, colName)
@@ -314,13 +328,18 @@ if __name__ == "__main__":
     # print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
     # test.week1Tests()
     # print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    test.testAddSentimentColumn()
+   
 
     ## Uncomment these for Week 2 ##
-    """print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
-    test.week2Tests()
-    print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
-    test.runWeek2()"""
+    # print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
+    # test.week2Tests()
+    # print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
+    # test.runWeek2()
+    # df = makeDataFrame("data/politicaldata.csv")
+    # stateDf = makeDataFrame("data/statemappings.csv")
+    # addColumns(df, stateDf)
+    # addSentimentColumn(df)
+    test.testGetDataCountByState(df)
 
     ## Uncomment these for Week 3 ##
     """print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
