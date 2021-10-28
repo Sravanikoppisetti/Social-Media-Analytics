@@ -3,7 +3,7 @@ Social Media Analytics Project
 Name:
 Roll Number:
 """
-
+from typing import Counter
 import hw6_social_tests as test
 
 project = "Social" # don't edit this
@@ -310,7 +310,13 @@ Parameters: dict mapping strs to ints ; dict mapping strs to ints ; int ; str
 Returns: None
 '''
 def graphTopNStates(stateCounts, stateFeatureCounts, n, title):
-    return
+    featurerate={}
+    topstates={}
+    for i in stateFeatureCounts:
+        featurerate[i]=(stateFeatureCounts[i]/stateCounts[i])
+    topstates=dict(Counter(featurerate).most_common(n))
+    graphStateCounts(topstates,"Top n Featured")
+    return    
 
 
 '''
