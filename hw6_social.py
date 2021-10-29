@@ -394,7 +394,7 @@ if __name__ == "__main__":
     # stateDf = makeDataFrame("data/statemappings.csv")
     # addColumns(df, stateDf)
     # addSentimentColumn(df)
-    test.testGetHashtagSentiment(df)
+    #test.testGetHashtagSentiment(df)
 
     ## Uncomment these for Week 3 ##
     """print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
