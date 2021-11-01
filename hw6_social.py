@@ -87,7 +87,7 @@ Returns: str
 def getRegionFromState(stateDf, state):
     row=stateDf.loc[stateDf['state']==state,'region'] 
     return row.values[0]
-    
+
 
 
 '''
