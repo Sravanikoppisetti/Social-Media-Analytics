@@ -76,9 +76,7 @@ Parameters: str
 Returns: list of strs
 '''
 def findHashtags(message):
-
-   
-    return 
+  return 
 
 
 '''
