@@ -266,7 +266,18 @@ Parameters: dataframe ; str
 Returns: float
 '''
 def getHashtagSentiment(data, hashtag):
-    return
+    #print("dd",data.head(2))
+    score_list=[]
+    for index,row in data.iterrows():
+        if hashtag in row['text']:
+            if row['sentiment']=='positive':
+                score_list.append(1)
+            elif row['sentiment']=='negative':
+                score_list.append(-1)
+            elif row['sentiment']=='neutral':
+                score_list.append(0)
+    #print("pp", sum(score_list)/len(score_list))
+    return sum(score_list)/len(score_list)
 
 
 ### PART 3 ###
@@ -383,7 +394,7 @@ if __name__ == "__main__":
     # stateDf = makeDataFrame("data/statemappings.csv")
     # addColumns(df, stateDf)
     # addSentimentColumn(df)
-    test.testMostCommonHashtags(df)
+    test.testGetHashtagSentiment(df)
 
     ## Uncomment these for Week 3 ##
     """print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
