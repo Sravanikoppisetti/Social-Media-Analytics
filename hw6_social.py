@@ -3,7 +3,7 @@ Social Media Analytics Project
 Name:
 Roll Number:
 """
-
+from typing import Counter
 import hw6_social_tests as test
 
 project = "Social" # don't edit this
@@ -105,7 +105,7 @@ Returns: str
 def getRegionFromState(stateDf, state):
     row=stateDf.loc[stateDf['state']==state,'region'] 
     return row.values[0]
-    
+
 
 
 '''
@@ -290,6 +290,16 @@ Returns: None
 '''
 def graphStateCounts(stateCounts, title):
     import matplotlib.pyplot as plt
+    xlst=[i for i in stateCounts]
+    w=0.8
+    ylst=[stateCounts[i] for i in stateCounts]
+    for index in range(len(ylst)):
+        plt.bar(xlst[index],ylst[index],width=w)
+    plt.xticks(ticks=list(range(len(xlst))),label=xlst,rotation="vertical")
+    plt.title("StateCount")
+    plt.xlabel("State")
+    plt.ylabel("Count")
+    plt.show()
     return
 
 
@@ -300,7 +310,13 @@ Parameters: dict mapping strs to ints ; dict mapping strs to ints ; int ; str
 Returns: None
 '''
 def graphTopNStates(stateCounts, stateFeatureCounts, n, title):
-    return
+    featurerate={}
+    topstates={}
+    for i in stateFeatureCounts:
+        featurerate[i]=(stateFeatureCounts[i]/stateCounts[i])
+    topstates=dict(Counter(featurerate).most_common(n))
+    graphStateCounts(topstates,"Top n Featured")
+    return    
 
 
 '''
@@ -310,6 +326,19 @@ Parameters: dict mapping strs to (dicts mapping strs to ints) ; str
 Returns: None
 '''
 def graphRegionComparison(regionDicts, title):
+    featurelst=[]
+    regionlst=[]
+    regionvalue=[]
+    for i in regionDicts:
+        templist=[]
+        x=regionDicts[i]
+        for j in x:
+            if j not in featurelst:
+                featurelst.append(j)
+            templist.append(x[j])
+        regionvalue.append(templist)
+        regionlst.append(i)
+    sideBySideBarPlots(featurelst,regionlst,regionvalue,title)
     return
 
 
@@ -320,7 +349,17 @@ Parameters: dataframe
 Returns: None
 '''
 def graphHashtagSentimentByFrequency(data):
-    return
+    dict1=getHashtagRates(data)
+    mostcommon=mostCommonHashtags(dict1,50)
+    hashtaglst=[]
+    freqlst=[]
+    sentimentlst=[]
+    for i in mostcommon:
+        hashtaglst.append(i)
+        freqlst.append(mostcommon[i])
+        sentimentlst.append(getHashtagSentiment(data,i))
+    scatterPlot(freqlst,sentimentlst,hashtaglst,"Hashtags Frequency")
+    return    
 
 
 #### PART 3 PROVIDED CODE ####
@@ -386,8 +425,8 @@ if __name__ == "__main__":
    
 
     ## Uncomment these for Week 2 ##
-    # print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
-    # test.week2Tests()
+    """ print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
+    # test.week2Tests()"""
     # print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
     # test.runWeek2()
     # df = makeDataFrame("data/politicaldata.csv")
@@ -397,5 +436,5 @@ if __name__ == "__main__":
     #test.testGetHashtagSentiment(df)
 
     ## Uncomment these for Week 3 ##
-    """print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
-    test.runWeek3()"""
+    print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
+    test.runWeek3()
