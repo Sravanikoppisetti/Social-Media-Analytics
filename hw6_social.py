@@ -18,7 +18,6 @@ import matplotlib.pyplot as plt; plt.rcdefaults()
 import numpy as np
 endChars = [ " ", "\n", "#", ".", ",", "?", "!", ":", ";", ")" ]
 import re
-
 '''
 makeDataFrame(filename)
 #3 [Check6-1]
@@ -76,7 +75,7 @@ Parameters: str
 Returns: list of strs
 '''
 def findHashtags(message):
-  return 
+    return re.findall(r"#\w+", message)
 
 
 '''
@@ -276,7 +275,7 @@ if __name__ == "__main__":
     # print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
     # test.week1Tests()
     # print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    test.testParseState()
+    test.testFindHashtags()
 
     ## Uncomment these for Week 2 ##
     """print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
