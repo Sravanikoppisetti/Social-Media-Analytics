@@ -17,6 +17,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import matplotlib.pyplot as plt; plt.rcdefaults()
 import numpy as np
 endChars = [ " ", "\n", "#", ".", ",", "?", "!", ":", ";", ")" ]
+import re
 
 '''
 makeDataFrame(filename)
@@ -36,7 +37,10 @@ Parameters: str
 Returns: str
 '''
 def parseName(fromString):
-    return
+    newstring=re.split(':',fromString)[1]
+    newstring1=re.split('\(',newstring)[0]
+    name=newstring1.strip(" ")
+    return  name
 
 
 '''
@@ -46,7 +50,10 @@ Parameters: str
 Returns: str
 '''
 def parsePosition(fromString):
-    return
+    newstring2=re.split('\(',fromString)[1]
+    newstring3=re.split('from',newstring2)[0]
+    position=newstring3.strip(" ")
+    return position
 
 
 '''
@@ -56,7 +63,10 @@ Parameters: str
 Returns: str
 '''
 def parseState(fromString):
-    return
+    newstring4=re.split('from',fromString)[1]
+    newstring5=re.split('\)',newstring4)[0]
+    state=newstring5.strip(" ")
+    return state
 
 
 '''
@@ -66,7 +76,9 @@ Parameters: str
 Returns: list of strs
 '''
 def findHashtags(message):
-    return
+
+   
+    return 
 
 
 '''
@@ -266,7 +278,7 @@ if __name__ == "__main__":
     # print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
     # test.week1Tests()
     # print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    test.testMakeDataFrame()
+    test.testParseState()
 
     ## Uncomment these for Week 2 ##
     """print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
