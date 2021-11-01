@@ -76,7 +76,24 @@ Parameters: str
 Returns: list of strs
 '''
 def findHashtags(message):
-   return re.findall(r"#\w+", message)
+    lst=[]
+    m=message.split("#")
+    # print(m)
+    for x in m[1:len(m)]:
+        string=""
+        # print(x)
+        for y in x:
+            if y not in endChars:
+                string+=y
+                # print(y)
+            else:
+                break
+        string="#"+string
+        lst.append(string)
+        #print(lst)
+    return lst
+
+   #return re.findall(r"#\w+", message)
 
 
 '''
@@ -215,9 +232,15 @@ Parameters: dataframe
 Returns: dict mapping strs to ints
 '''
 def getHashtagRates(data):
-    return
-
-
+    hashtag_dict={}
+    for i,row in data.iterrows():
+        hash=row["hashtags"]
+        for j in range(len(hash)):
+            tag=hash[j]
+            if tag not in hashtag_dict:
+                hashtag_dict[tag] =0
+            hashtag_dict[tag] += 1
+    return (hashtag_dict)
 '''
 mostCommonHashtags(hashtags, count)
 #6 [Check6-2]
@@ -352,7 +375,7 @@ if __name__ == "__main__":
     # stateDf = makeDataFrame("data/statemappings.csv")
     # addColumns(df, stateDf)
     # addSentimentColumn(df)
-    test.testGetDataForRegion(df)
+    test.testGetHashtagRates(df)
 
     ## Uncomment these for Week 3 ##
     """print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
