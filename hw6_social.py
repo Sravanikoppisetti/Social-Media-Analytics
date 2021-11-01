@@ -434,10 +434,6 @@ if __name__ == "__main__":
     # addColumns(df, stateDf)
     # addSentimentColumn(df)
     #test.testGetHashtagSentiment(df)
-    #print(scatterPlot())
-
-    #test.testGetDataCountByState(df)
-
 
     ## Uncomment these for Week 3 ##
     print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
